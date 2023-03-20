@@ -3,7 +3,7 @@ import Table from './components/Table/Table';
 
 const App = () => (
   <div className='App'>
-    <Table data={'some data'} />
+    <Table />
   </div>
 );
 

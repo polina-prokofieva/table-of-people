@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Person } from '../../features';
+import { Person } from '../../store/features/peopleSlice';
 import { columns } from '../../constants';
 import styles from './PersonRow.module.scss';
 import { camelToKebab } from '../../utils';

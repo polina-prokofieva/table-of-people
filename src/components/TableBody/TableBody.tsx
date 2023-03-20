@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { People } from '../../features';
+import { People } from '../../store/features/peopleSlice';
 import PersonRow from '../PersonRow/PersonRow';
 import styles from './TableBody.module.scss';
 

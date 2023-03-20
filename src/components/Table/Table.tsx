@@ -1,15 +1,16 @@
 import { FC, useEffect } from 'react';
-import { People } from '../../features';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchPeople } from '../../features';
+import { People } from '../../store/features/peopleSlice';
+import { useSelector } from 'react-redux';
+import { fetchPeople } from '../../store/features/peopleSlice';
 import TableHeader from '../TableHeader/TableHeader';
 import TableBody from '../TableBody/TableBody';
 import styles from './Table.module.scss';
+import { useAppDispatch } from '../../store/store';
 
 const Table: FC = () => {
   const loading = useSelector((state: People) => state.loading);
   const error = useSelector((state: People) => state.error);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPeople());

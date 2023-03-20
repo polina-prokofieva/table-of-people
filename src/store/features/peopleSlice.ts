@@ -28,7 +28,7 @@ export const fetchPeople = createAsyncThunk('people/getPeople', () => {
     .then(res => res.data);
 });
 
-export const dataSlice = createSlice({
+export const peopleSlice = createSlice({
   name: 'table-data',
   initialState,
   reducers: {},
@@ -52,4 +52,4 @@ export const dataSlice = createSlice({
   },
 });
 
-export default dataSlice.reducer;
+export default peopleSlice.reducer;
