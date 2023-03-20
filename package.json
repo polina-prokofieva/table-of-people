@@ -6,7 +6,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "editorconfig": "editorconfig-checker"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
