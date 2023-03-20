@@ -1,0 +1,11 @@
+.PersonRow {
+  background-color: #f7fdfd;
+
+  &:nth-child(even) {
+    background-color: #e1f5f3;
+  }
+
+  .cell {
+    padding: 0.5rem 1rem;
+  }
+}
