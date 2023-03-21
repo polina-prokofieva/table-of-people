@@ -14,6 +14,7 @@ export type People = {
   people: Person[];
   loading: boolean;
   error: string;
+  updatingPeople?: Person[];
 };
 
 const initialState: People = {
@@ -32,6 +33,16 @@ export const deletePerson = createAsyncThunk(
   'people/deletePerson',
   async (id: number) => {
     return axios.delete(`${apiURL}/${id}`).then(res => res.data);
+  }
+);
+
+export const updatePerson = createAsyncThunk(
+  'people/updatePerson',
+  async (person: Person) => {
+    const { name, age, about } = person;
+    return axios
+      .put(`${apiURL}/${person.id}`, { name, age, about })
+      .then(res => res.data);
   }
 );
 
@@ -71,6 +82,30 @@ export const peopleSlice = createSlice({
       }
     );
     builder.addCase(deletePerson.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Something went wrong';
+    });
+
+    builder.addCase(updatePerson.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(
+      updatePerson.fulfilled,
+      (state, action: PayloadAction<Person>) => {
+        state.loading = false;
+
+        const updatedIdx = state.people.findIndex(
+          person => person.id === action.payload.id
+        );
+
+        const updatedPeople = [...state.people];
+        updatedPeople[updatedIdx] = action.payload;
+
+        state.people = updatedPeople;
+        state.error = '';
+      }
+    );
+    builder.addCase(updatePerson.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message || 'Something went wrong';
     });
