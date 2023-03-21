@@ -1,1 +1,1 @@
-export const columns = ['id', 'name', 'age', 'aboutPerson', 'actions'];
+export const columns = ['Id', 'Name', 'Age', 'About', 'Actions'];

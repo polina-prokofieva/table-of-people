@@ -7,7 +7,7 @@ export interface Person {
   id: number;
   name: string;
   age: number;
-  aboutPerson?: string;
+  about?: string;
 }
 
 export type People = {
