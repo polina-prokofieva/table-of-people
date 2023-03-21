@@ -22,11 +22,18 @@ const initialState: People = {
   error: '',
 };
 
-export const fetchPeople = createAsyncThunk('people/getPeople', () => {
-  return axios
-    .get('https://64181df175be53f451d65c69.mockapi.io/api/v1/people')
-    .then(res => res.data);
+const apiURL = 'https://64181df175be53f451d65c69.mockapi.io/api/v1/people';
+
+export const fetchPeople = createAsyncThunk('people/getPeople', async () => {
+  return axios.get(apiURL).then(res => res.data);
 });
+
+export const deletePerson = createAsyncThunk(
+  'people/deletePerson',
+  async (id: number) => {
+    return axios.delete(`${apiURL}/${id}`).then(res => res.data);
+  }
+);
 
 export const peopleSlice = createSlice({
   name: 'table-data',
@@ -47,6 +54,24 @@ export const peopleSlice = createSlice({
     builder.addCase(fetchPeople.rejected, (state, action) => {
       state.loading = false;
       state.people = [];
+      state.error = action.error.message || 'Something went wrong';
+    });
+
+    builder.addCase(deletePerson.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(
+      deletePerson.fulfilled,
+      (state, action: PayloadAction<Person>) => {
+        state.loading = false;
+        state.people = state.people.filter(
+          person => person.id !== action.payload.id
+        );
+        state.error = '';
+      }
+    );
+    builder.addCase(deletePerson.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.error.message || 'Something went wrong';
     });
   },
