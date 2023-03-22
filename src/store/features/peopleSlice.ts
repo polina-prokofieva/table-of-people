@@ -4,7 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface Person {
   [key: string]: any;
-  id: number;
+  id?: number;
+  name: string;
+  age: number;
+  about?: string;
+}
+
+export interface newPerson {
   name: string;
   age: number;
   about?: string;
@@ -15,6 +21,7 @@ export type People = {
   loading: boolean;
   error: string;
   updatingPeople?: Person[];
+  new?: newPerson;
 };
 
 const initialState: People = {
@@ -46,11 +53,19 @@ export const updatePerson = createAsyncThunk(
   }
 );
 
+export const addPerson = createAsyncThunk(
+  'people/addPerson',
+  async (person: newPerson) => {
+    return axios.post(apiURL, person).then(res => res.data);
+  }
+);
+
 export const peopleSlice = createSlice({
   name: 'table-data',
   initialState,
   reducers: {},
   extraReducers: builder => {
+    // get
     builder.addCase(fetchPeople.pending, state => {
       state.loading = true;
     });
@@ -68,6 +83,7 @@ export const peopleSlice = createSlice({
       state.error = action.error.message || 'Something went wrong';
     });
 
+    // delete
     builder.addCase(deletePerson.pending, state => {
       state.loading = true;
     });
@@ -86,6 +102,7 @@ export const peopleSlice = createSlice({
       state.error = action.error.message || 'Something went wrong';
     });
 
+    // update
     builder.addCase(updatePerson.pending, state => {
       state.loading = true;
     });
@@ -106,6 +123,23 @@ export const peopleSlice = createSlice({
       }
     );
     builder.addCase(updatePerson.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Something went wrong';
+    });
+
+    // create
+    builder.addCase(addPerson.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(
+      addPerson.fulfilled,
+      (state, action: PayloadAction<Person>) => {
+        state.loading = false;
+        state.people = [...state.people, action.payload];
+        state.error = '';
+      }
+    );
+    builder.addCase(addPerson.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message || 'Something went wrong';
     });
