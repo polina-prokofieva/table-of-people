@@ -8,4 +8,20 @@
   .cell {
     padding: 0.5rem 1rem;
   }
+
+  .field {
+    padding: 1rem 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    border: 1px solid #c4c4c4;
+    box-shadow: 0 1px 5px 1px #cccc inset;
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+  }
 }

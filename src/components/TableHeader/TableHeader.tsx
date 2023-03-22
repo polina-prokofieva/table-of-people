@@ -11,6 +11,7 @@ const TableHeader: FC = () => {
             {column}
           </th>
         ))}
+        <th className={styles.cell}>Actions</th>
       </tr>
     </thead>
   );

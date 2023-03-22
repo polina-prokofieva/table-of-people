@@ -4,7 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 export interface Person {
   [key: string]: any;
-  id: number;
+  id?: number;
+  name: string;
+  age: number;
+  about?: string;
+}
+
+export interface newPerson {
   name: string;
   age: number;
   about?: string;
@@ -14,6 +20,8 @@ export type People = {
   people: Person[];
   loading: boolean;
   error: string;
+  updatingPeople?: Person[];
+  new?: newPerson;
 };
 
 const initialState: People = {
@@ -35,11 +43,29 @@ export const deletePerson = createAsyncThunk(
   }
 );
 
+export const updatePerson = createAsyncThunk(
+  'people/updatePerson',
+  async (person: Person) => {
+    const { name, age, about } = person;
+    return axios
+      .put(`${apiURL}/${person.id}`, { name, age, about })
+      .then(res => res.data);
+  }
+);
+
+export const addPerson = createAsyncThunk(
+  'people/addPerson',
+  async (person: newPerson) => {
+    return axios.post(apiURL, person).then(res => res.data);
+  }
+);
+
 export const peopleSlice = createSlice({
   name: 'table-data',
   initialState,
   reducers: {},
   extraReducers: builder => {
+    // get
     builder.addCase(fetchPeople.pending, state => {
       state.loading = true;
     });
@@ -57,6 +83,7 @@ export const peopleSlice = createSlice({
       state.error = action.error.message || 'Something went wrong';
     });
 
+    // delete
     builder.addCase(deletePerson.pending, state => {
       state.loading = true;
     });
@@ -71,6 +98,48 @@ export const peopleSlice = createSlice({
       }
     );
     builder.addCase(deletePerson.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Something went wrong';
+    });
+
+    // update
+    builder.addCase(updatePerson.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(
+      updatePerson.fulfilled,
+      (state, action: PayloadAction<Person>) => {
+        state.loading = false;
+
+        const updatedIdx = state.people.findIndex(
+          person => person.id === action.payload.id
+        );
+
+        const updatedPeople = [...state.people];
+        updatedPeople[updatedIdx] = action.payload;
+
+        state.people = updatedPeople;
+        state.error = '';
+      }
+    );
+    builder.addCase(updatePerson.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Something went wrong';
+    });
+
+    // create
+    builder.addCase(addPerson.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(
+      addPerson.fulfilled,
+      (state, action: PayloadAction<Person>) => {
+        state.loading = false;
+        state.people = [...state.people, action.payload];
+        state.error = '';
+      }
+    );
+    builder.addCase(addPerson.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message || 'Something went wrong';
     });
