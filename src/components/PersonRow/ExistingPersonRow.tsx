@@ -1,6 +1,8 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   deletePerson,
+  People,
   Person,
   updatePerson,
 } from '../../store/features/peopleSlice';
@@ -15,8 +17,11 @@ interface Props {
 const ExistingPersonRow: FC<Props> = ({ person }) => {
   const { id } = person;
 
+  const loading = useSelector((state: People) => state.loading);
+
   const [editing, setEditing] = useState(false);
   const [updatedPersonData, setUpdatedPersonData] = useState<Person>(person);
+  const [saving, setSaving] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -30,12 +35,19 @@ const ExistingPersonRow: FC<Props> = ({ person }) => {
 
   const handleSave = () => {
     setEditing(false);
+    setSaving(true);
     dispatch(updatePerson(updatedPersonData));
   };
 
   const handleDelete = () => {
     id && dispatch(deletePerson(id));
   };
+
+  useEffect(() => {
+    if (saving && !loading) {
+      setSaving(false);
+    }
+  }, [saving, loading]);
 
   return (
     <PersonRow
@@ -44,17 +56,21 @@ const ExistingPersonRow: FC<Props> = ({ person }) => {
       updatedPersonData={updatedPersonData}
       setUpdatedPersonData={setUpdatedPersonData}
     >
-      {editing ? (
-        <>
-          <Button label='Save' onClick={handleSave} />
-          <Button label='Cancel' onClick={handleCancel} />
-        </>
-      ) : (
-        <>
-          <Button label='Edit' onClick={handleEdit} />
-          <Button label='Delete' onClick={handleDelete} />
-        </>
-      )}
+      <>
+        {saving && <span>Saving...</span>}
+        {!saving && editing && (
+          <>
+            <Button label='Save' onClick={handleSave} />
+            <Button label='Cancel' onClick={handleCancel} />
+          </>
+        )}
+        {!saving && !editing && (
+          <>
+            <Button label='Edit' onClick={handleEdit} />
+            <Button label='Delete' onClick={handleDelete} />
+          </>
+        )}
+      </>
     </PersonRow>
   );
 };

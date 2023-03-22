@@ -11,6 +11,8 @@ import { useAppDispatch } from '../../store/store';
 const Table: FC = () => {
   const loading = useSelector((state: People) => state.loading);
   const error = useSelector((state: People) => state.error);
+  const people = useSelector((state: People) => state.people);
+
   const dispatch = useAppDispatch();
 
   const [adding, setAdding] = useState(false);
@@ -27,7 +29,7 @@ const Table: FC = () => {
     setAdding(false);
   };
 
-  if (loading) {
+  if (!people && loading) {
     return <h4>Loading...</h4>;
   }
 
