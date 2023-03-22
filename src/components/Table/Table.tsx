@@ -19,6 +19,7 @@ const Table: FC = () => {
 
   useEffect(() => {
     dispatch(fetchPeople());
+    localStorage.getItem('new') && setAdding(true);
   }, []);
 
   const handleAddPerson = () => {
@@ -27,9 +28,10 @@ const Table: FC = () => {
 
   const hadleCancelAddingPerson = () => {
     setAdding(false);
+    localStorage.removeItem('new');
   };
 
-  if (!people && loading) {
+  if (!people.length && loading) {
     return <h4>Loading...</h4>;
   }
 
@@ -47,7 +49,6 @@ const Table: FC = () => {
           hadleCancelAddingPerson={hadleCancelAddingPerson}
         />
       </table>
-      <Button label='add new person' onClick={handleAddPerson} />
     </div>
   );
 };

@@ -1,25 +1,35 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { addPerson, Person } from '../../store/features/peopleSlice';
 import { useAppDispatch } from '../../store/store';
 import Button from '../Button/Button';
 import PersonRow from './PersonRow';
 
 interface Props {
-  handleCancel: (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handleCancel: () => void;
 }
+
+export const emptyPerson: Person = {
+  name: '',
+  age: 0,
+  about: '',
+};
 
 const NewPersonRow: FC<Props> = ({ handleCancel }) => {
   const dispatch = useAppDispatch();
 
-  const [updatedPersonData, setUpdatedPersonData] = useState<Person>({
-    name: '',
-    age: 0,
-    about: '',
-  });
+  const [updatedPersonData, setUpdatedPersonData] = useState<Person | null>(
+    null
+  );
 
   const handleCreate = () => {
-    dispatch(addPerson(updatedPersonData));
+    updatedPersonData && dispatch(addPerson(updatedPersonData));
+    handleCancel();
   };
+
+  useEffect(() => {
+    const newPerson = localStorage.getItem('new');
+    newPerson && setUpdatedPersonData(JSON.parse(newPerson));
+  }, []);
 
   return (
     <PersonRow

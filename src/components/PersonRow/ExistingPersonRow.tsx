@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   deletePerson,
@@ -37,6 +37,8 @@ const ExistingPersonRow: FC<Props> = ({ person }) => {
     setEditing(false);
     setSaving(true);
     dispatch(updatePerson(updatedPersonData));
+    updatedPersonData.id &&
+      localStorage.removeItem(updatedPersonData.id.toString());
   };
 
   const handleDelete = () => {
@@ -44,17 +46,34 @@ const ExistingPersonRow: FC<Props> = ({ person }) => {
   };
 
   useEffect(() => {
+    const updating = localStorage.getItem(`${id}`);
+
+    if (updating) {
+      setEditing(true);
+      setUpdatedPersonData(JSON.parse(updating));
+    }
+  }, []);
+
+  useEffect(() => {
     if (saving && !loading) {
       setSaving(false);
     }
   }, [saving, loading]);
+
+  useEffect(() => {
+    !editing &&
+      updatedPersonData.id &&
+      localStorage.removeItem(updatedPersonData.id.toString());
+  }, [editing]);
 
   return (
     <PersonRow
       person={person}
       editing={editing}
       updatedPersonData={updatedPersonData}
-      setUpdatedPersonData={setUpdatedPersonData}
+      setUpdatedPersonData={
+        setUpdatedPersonData as Dispatch<SetStateAction<Person | null>>
+      }
     >
       <>
         {saving && <span>Saving...</span>}
