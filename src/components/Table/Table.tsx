@@ -2,11 +2,11 @@ import { FC, useEffect, useState } from 'react';
 import { People } from '../../store/features/peopleSlice';
 import { useSelector } from 'react-redux';
 import { fetchPeople } from '../../store/features/peopleSlice';
-import TableHeader from '../TableHeader/TableHeader';
-import TableBody from '../TableBody/TableBody';
+import TableHeader from './TableHeader/TableHeader';
+import TableBody from './TableBody/TableBody';
 import styles from './Table.module.scss';
-import Button from '../Button/Button';
 import { useAppDispatch } from '../../store/store';
+import Header from '../Header/Header';
 
 const Table: FC = () => {
   const loading = useSelector((state: People) => state.loading);
@@ -41,14 +41,14 @@ const Table: FC = () => {
 
   return (
     <div className={styles.Table}>
-      <Button label='add new person' onClick={handleAddPerson} />
-      <table>
+      <Header handleAddPerson={handleAddPerson} />
+      <div className={styles.dataTable}>
         <TableHeader />
         <TableBody
           adding={adding}
           hadleCancelAddingPerson={hadleCancelAddingPerson}
         />
-      </table>
+      </div>
     </div>
   );
 };

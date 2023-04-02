@@ -1,8 +1,13 @@
+@import '../../assets/variables.scss';
+
 .Table {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
+}
+
+.dataTable {
+  max-width: $max-width;
+  margin: -66px auto 0;
 }
 
 .error {

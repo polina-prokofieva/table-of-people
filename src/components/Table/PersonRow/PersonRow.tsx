@@ -1,6 +1,6 @@
 import { FC, Dispatch, SetStateAction, useEffect } from 'react';
-import { Person } from '../../store/features/peopleSlice';
-import { columns } from '../../constants';
+import { Person } from '../../../store/features/peopleSlice';
+import { columns } from '../../../constants';
 import styles from './PersonRow.module.scss';
 import { emptyPerson } from './NewPersonRow';
 

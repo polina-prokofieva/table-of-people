@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { People } from '../../store/features/peopleSlice';
+import { People } from '../../../store/features/peopleSlice';
 import ExistingPersonRow from '../PersonRow/ExistingPersonRow';
 import NewPersonRow from '../PersonRow/NewPersonRow';
 import PersonRow from '../PersonRow/PersonRow';

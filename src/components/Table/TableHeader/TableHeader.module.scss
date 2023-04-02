@@ -1,0 +1,13 @@
+@import '../../../assets/mixins.scss';
+
+.TableHeader {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+
+  .cell {
+    @include header;
+    border: $tertiary;
+  }
+}
