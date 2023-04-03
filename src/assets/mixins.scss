@@ -1,11 +1,11 @@
 @import './colors.scss';
 
-@mixin header {
-  position: sticky;
-  top: 0;
-  background-color: $primary;
-  color: $tertiary;
-  padding: 1rem 2rem;
-  text-align: center;
-  text-transform: capitalize;
+@mixin table-row {
+  display: grid;
+  grid-template-columns: $id-cell $name-cell $age-cell $about-cell $actions-cell;
+  grid-template-rows: min-content min-content min-content;
+
+  @media (max-width: $min-desktop-width) {
+    grid-template-columns: 3rem 12rem 3rem 1fr 9rem;
+  }
 }

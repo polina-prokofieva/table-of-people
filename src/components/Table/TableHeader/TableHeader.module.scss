@@ -1,13 +1,34 @@
 @import '../../../assets/mixins.scss';
+@import '../../../assets/colors.scss';
+@import '../../../assets/variables.scss';
 
 .TableHeader {
   position: sticky;
   top: 0;
-  display: flex;
-  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  background-color: $primary;
+  @include table-row;
 
   .cell {
-    @include header;
-    border: $tertiary;
+    background-color: $primary;
+    color: $tertiary;
+    padding: 1rem 1rem;
+    text-align: center;
+    text-transform: capitalize;
+    border-right: 1px solid $tertiary;
+
+    &:last-child {
+      border-right: 0;
+    }
+
+    @media (max-width: $min-desktop-width) {
+      padding: 0.5em;
+      font-size: 0.8em;
+    }
+
+    @media (max-width: $max-mobile-width) {
+      display: none;
+    }
   }
 }

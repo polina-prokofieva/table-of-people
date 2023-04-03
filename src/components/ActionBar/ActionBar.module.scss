@@ -1,0 +1,10 @@
+@import '../../assets/mixins.scss';
+
+.ActionBar {
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  bottom: 1rem;
+  left: 1rem;
+  margin: 1rem;
+}

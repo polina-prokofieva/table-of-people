@@ -3,11 +3,12 @@
 .Table {
   display: flex;
   flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 .dataTable {
-  max-width: $max-width;
-  margin: -66px auto 0;
+  width: 100vw;
 }
 
 .error {

@@ -6,7 +6,7 @@ export interface GeneralIconProps {
   width?: number;
 }
 
-const Icon: FC<GeneralIconProps> = ({ classes, path, width = 15 }) => {
+const Icon: FC<GeneralIconProps> = ({ classes, path, width = 16 }) => {
   return (
     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width={width}>
       <path className={classes} d={path} />

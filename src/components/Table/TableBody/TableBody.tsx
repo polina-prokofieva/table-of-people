@@ -14,12 +14,12 @@ const TableBody: FC<Props> = ({ adding, hadleCancelAddingPerson }) => {
   const people = useSelector((state: People) => state.people);
 
   return (
-    <tbody>
+    <div>
       {adding && <NewPersonRow handleCancel={hadleCancelAddingPerson} />}
       {people.map(person => (
         <ExistingPersonRow person={person} key={person.id} />
       ))}
-    </tbody>
+    </div>
   );
 };
 

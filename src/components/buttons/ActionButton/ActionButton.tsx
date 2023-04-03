@@ -21,7 +21,7 @@ export const ActionButton: FC<Props> = ({
       className={classNames(styles.ActionButton, styles[type])}
       onClick={action}
     >
-      {label}
+      <span className={styles.label}>{label}</span>
       {Icon && <Icon classes={styles.icon} />}
     </button>
   );

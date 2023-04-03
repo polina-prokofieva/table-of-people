@@ -1,8 +1,9 @@
 import { FC, Dispatch, SetStateAction, useEffect } from 'react';
 import { Person } from '../../../store/features/peopleSlice';
 import { columns } from '../../../constants';
-import styles from './PersonRow.module.scss';
 import { emptyPerson } from './NewPersonRow';
+import classNames from 'classnames';
+import styles from './PersonRow.module.scss';
 
 interface Props {
   person?: Person;
@@ -46,9 +47,12 @@ const PersonRow: FC<Props> = ({
   }, [updatedPersonData, editing]);
 
   return (
-    <tr className={styles.PersonRow}>
+    <div className={styles.PersonRow}>
       {columns.map(column => (
-        <td key={`${column}_${person?.id}`} className={styles.cell}>
+        <div
+          key={`${column}_${person?.id}`}
+          className={classNames(styles.cell, styles[column])}
+        >
           {editing && column !== 'id' ? (
             <input
               name={column}
@@ -62,12 +66,10 @@ const PersonRow: FC<Props> = ({
           ) : (
             person?.[column]
           )}
-        </td>
+        </div>
       ))}
-      <td className={styles.cell}>
-        <div className={styles.actions}>{children}</div>
-      </td>
-    </tr>
+      <div className={classNames(styles.cell, styles.actions)}>{children}</div>
+    </div>
   );
 };
 

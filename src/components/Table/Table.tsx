@@ -6,7 +6,7 @@ import TableHeader from './TableHeader/TableHeader';
 import TableBody from './TableBody/TableBody';
 import styles from './Table.module.scss';
 import { useAppDispatch } from '../../store/store';
-import Header from '../Header/Header';
+import ActionBar from '../ActionBar/ActionBar';
 
 const Table: FC = () => {
   const loading = useSelector((state: People) => state.loading);
@@ -41,14 +41,14 @@ const Table: FC = () => {
 
   return (
     <div className={styles.Table}>
-      <Header handleAddPerson={handleAddPerson} />
+      <TableHeader />
       <div className={styles.dataTable}>
-        <TableHeader />
         <TableBody
           adding={adding}
           hadleCancelAddingPerson={hadleCancelAddingPerson}
         />
       </div>
+      <ActionBar handleAddPerson={handleAddPerson} />
     </div>
   );
 };

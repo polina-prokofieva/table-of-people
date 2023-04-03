@@ -3,5 +3,9 @@ declare const classNames: {
   readonly cell: "cell";
   readonly field: "field";
   readonly actions: "actions";
+  readonly id: "id";
+  readonly name: "name";
+  readonly age: "age";
+  readonly about: "about";
 };
 export = classNames;

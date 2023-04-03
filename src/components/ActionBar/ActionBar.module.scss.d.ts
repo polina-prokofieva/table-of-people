@@ -1,4 +1,4 @@
 declare const classNames: {
-  readonly Header: "Header";
+  readonly ActionBar: "ActionBar";
 };
 export = classNames;

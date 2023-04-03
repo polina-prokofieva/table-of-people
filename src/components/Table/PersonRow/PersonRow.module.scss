@@ -1,5 +1,12 @@
+@import '../../../assets/variables.scss';
+@import '../../../assets/mixins.scss';
+@import '../../../assets/colors.scss';
+
 .PersonRow {
+  @include table-row;
+  justify-content: center;
   background-color: #f7fdfd;
+  max-width: 100vw;
 
   &:nth-child(even) {
     background-color: #e1f5f3;
@@ -7,6 +14,11 @@
 
   .cell {
     padding: 0.5rem 1rem;
+    border-right: 1px solid $tertiary;
+
+    &:last-child {
+      border-right: 0;
+    }
   }
 
   .field {
@@ -25,5 +37,65 @@
     flex-direction: column;
     align-items: end;
     gap: 0.5rem;
+  }
+
+  @media (max-width: $max-mobile-width) {
+    grid-template-columns: auto 10em;
+
+    .cell {
+      border: 0;
+    }
+
+    .id {
+      &::before {
+        content: 'id: ';
+        font-weight: bold;
+      }
+      grid-row-start: 1;
+      grid-row-end: 1;
+      grid-column-start: 1;
+      grid-column-end: 1;
+    }
+
+    .name {
+      font-weight: bold;
+      grid-row-start: 2;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: 1;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .age {
+      &::after {
+        content: ' y.o.';
+      }
+      grid-row-start: 3;
+      grid-row-end: 3;
+      grid-column-start: 1;
+      grid-column-end: 1;
+      align-self: stretch;
+    }
+
+    .about {
+      grid-row-start: 4;
+      grid-row-end: 4;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    .actions {
+      grid-row-start: 1;
+      grid-row-end: 4;
+      grid-column-start: 2;
+      grid-column-end: 2;
+      flex-direction: row;
+      align-items: start;
+      justify-content: end;
+
+      svg {
+        width: 20px;
+      }
+    }
   }
 }
