@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IconProps } from '../../icons/icons';
+import { IconProps } from '../../icons/Icon';
 import classNames from 'classnames';
 import styles from './ActionButton.module.scss';
 

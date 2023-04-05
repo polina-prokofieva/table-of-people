@@ -14,7 +14,7 @@ const Icon: FC<GeneralIconProps> = ({ classes, path, width = 16 }) => {
   );
 };
 
-interface IconProps {
+export interface IconProps {
   classes: string;
 }
 
