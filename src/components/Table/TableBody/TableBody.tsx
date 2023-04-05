@@ -15,6 +15,7 @@ const TableBody: FC<Props> = ({ adding, hadleCancelAddingPerson }) => {
 
   useEffect(() => {
     adding && refToTop.current && refToTop.current.scrollIntoView();
+    window.scrollTo(0, 0);
   });
 
   return (
