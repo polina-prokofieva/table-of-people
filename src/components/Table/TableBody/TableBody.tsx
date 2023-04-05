@@ -1,9 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { People } from '../../store/features/peopleSlice';
+import { People } from '../../../store/features/peopleSlice';
 import ExistingPersonRow from '../PersonRow/ExistingPersonRow';
 import NewPersonRow from '../PersonRow/NewPersonRow';
-import PersonRow from '../PersonRow/PersonRow';
 
 interface Props {
   adding: boolean;
@@ -12,14 +11,19 @@ interface Props {
 
 const TableBody: FC<Props> = ({ adding, hadleCancelAddingPerson }) => {
   const people = useSelector((state: People) => state.people);
+  const refToTop = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    adding && refToTop.current && refToTop.current.scrollIntoView();
+  });
 
   return (
-    <tbody>
+    <div ref={refToTop}>
       {adding && <NewPersonRow handleCancel={hadleCancelAddingPerson} />}
       {people.map(person => (
         <ExistingPersonRow person={person} key={person.id} />
       ))}
-    </tbody>
+    </div>
   );
 };
 

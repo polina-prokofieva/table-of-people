@@ -5,10 +5,11 @@ import {
   People,
   Person,
   updatePerson,
-} from '../../store/features/peopleSlice';
-import { useAppDispatch } from '../../store/store';
-import Button from '../Button/Button';
+} from '../../../store/features/peopleSlice';
+import { useAppDispatch } from '../../../store/store';
 import PersonRow from './PersonRow';
+import { ActionButton } from '../../buttons/ActionButton/ActionButton';
+import { CancelIcon, DeleteIcon, EditIcon, SaveIcon } from '../../icons/Icon';
 
 interface Props {
   person: Person;
@@ -79,14 +80,34 @@ const ExistingPersonRow: FC<Props> = ({ person }) => {
         {saving && <span>Saving...</span>}
         {!saving && editing && (
           <>
-            <Button label='Save' onClick={handleSave} />
-            <Button label='Cancel' onClick={handleCancel} />
+            <ActionButton
+              label='Save'
+              type='normal'
+              Icon={SaveIcon}
+              action={handleSave}
+            />
+            <ActionButton
+              label='Cancel'
+              type='danger'
+              Icon={CancelIcon}
+              action={handleCancel}
+            />
           </>
         )}
         {!saving && !editing && (
           <>
-            <Button label='Edit' onClick={handleEdit} />
-            <Button label='Delete' onClick={handleDelete} />
+            <ActionButton
+              label='Edit'
+              type='normal'
+              Icon={EditIcon}
+              action={handleEdit}
+            />
+            <ActionButton
+              label='Delete'
+              type='danger'
+              Icon={DeleteIcon}
+              action={handleDelete}
+            />
           </>
         )}
       </>

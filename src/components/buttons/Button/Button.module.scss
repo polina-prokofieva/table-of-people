@@ -1,0 +1,56 @@
+@import '../../../assets/colors.scss';
+@import '../../../assets/variables.scss';
+
+.Button {
+  padding: 0.74em 1.2em 0.6rem;
+  color: $tertiary;
+  border-radius: 1.2rem;
+  border: 2px solid $tertiary;
+  background-color: $primary;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: $primary 0 0 10px;
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    background-color: $tertiary;
+    color: $primary;
+  }
+
+  &:active,
+  &:focus {
+    outline: 0;
+    transform: scale(0.95);
+  }
+}
+
+.mobileLabel {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+@media (max-width: $max-mobile-width) {
+  .Button {
+    border-radius: 50%;
+  }
+  .desktopLabel {
+    display: none;
+    height: 0;
+    width: 0;
+  }
+
+  .mobileLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 1.2rem;
+    font-size: 4rem;
+    line-height: 1;
+    padding-bottom: 0.2rem;
+  }
+}

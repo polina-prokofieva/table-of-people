@@ -1,0 +1,81 @@
+@import '../../../assets/colors.scss';
+@import '../../../assets/variables.scss';
+
+.ActionButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.4em 1em 0.4em;
+  border-radius: 2rem;
+  border: 0;
+  background-color: $tertiary;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.9rem;
+  outline: none;
+  line-height: 1.2;
+
+  .label {
+    padding-top: 0.2em;
+    padding-right: 0.5em;
+  }
+
+  .icon {
+    fill: $primary;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover,
+  &:focus {
+    outline: 0;
+    color: $tertiary;
+    transition: all 0.2s ease-in-out;
+
+    .icon {
+      fill: $tertiary;
+    }
+  }
+
+  &.normal {
+    color: $primary;
+
+    &:hover,
+    &:focus {
+      background-color: $primary;
+      color: $tertiary;
+    }
+  }
+
+  &.danger {
+    color: $danger;
+
+    .icon {
+      fill: $danger;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: $danger;
+      color: $tertiary;
+
+      .icon {
+        fill: $tertiary;
+      }
+    }
+  }
+
+  &:active,
+  &:focus {
+    outline: 0;
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: $max-mobile-width) {
+  .ActionButton {
+    padding: 1.5em;
+  }
+  .label {
+    display: none;
+  }
+}
