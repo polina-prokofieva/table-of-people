@@ -6,6 +6,6 @@
   grid-template-rows: min-content min-content min-content;
 
   @media (max-width: $min-desktop-width) {
-    grid-template-columns: 3rem 12rem 3rem 1fr 9rem;
+    grid-template-columns: 3rem 12rem 5rem 1fr 9rem;
   }
 }

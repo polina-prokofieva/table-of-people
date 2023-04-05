@@ -48,7 +48,7 @@ const Table: FC = () => {
           hadleCancelAddingPerson={hadleCancelAddingPerson}
         />
       </div>
-      <ActionBar handleAddPerson={handleAddPerson} />
+      {!adding && <ActionBar handleAddPerson={handleAddPerson} />}
     </div>
   );
 };

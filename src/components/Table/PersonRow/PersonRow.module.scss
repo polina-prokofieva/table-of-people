@@ -97,5 +97,44 @@
         width: 20px;
       }
     }
+
+    &.adding {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5em 0;
+      width: 100vw;
+
+      .id {
+        display: none;
+      }
+
+      .name {
+        &::before {
+          content: 'Name:';
+        }
+      }
+
+      .age {
+        &::before {
+          content: 'Age:';
+          font-weight: bold;
+        }
+        &::after {
+          content: '';
+        }
+      }
+
+      .about {
+        &::before {
+          content: 'About:';
+          font-weight: bold;
+        }
+      }
+
+      .actions {
+        flex-direction: row-reverse;
+        justify-content: space-between;
+      }
+    }
   }
 }

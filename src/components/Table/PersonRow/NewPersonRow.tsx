@@ -34,6 +34,7 @@ const NewPersonRow: FC<Props> = ({ handleCancel }) => {
 
   return (
     <PersonRow
+      isNew={true}
       editing={true}
       updatedPersonData={updatedPersonData}
       setUpdatedPersonData={setUpdatedPersonData}

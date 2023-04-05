@@ -7,6 +7,7 @@ import styles from './PersonRow.module.scss';
 
 interface Props {
   person?: Person;
+  isNew?: boolean;
   children: JSX.Element;
   editing: boolean;
   updatedPersonData: Person | null;
@@ -15,6 +16,7 @@ interface Props {
 
 const PersonRow: FC<Props> = ({
   person,
+  isNew,
   children,
   editing,
   updatedPersonData,
@@ -47,7 +49,7 @@ const PersonRow: FC<Props> = ({
   }, [updatedPersonData, editing]);
 
   return (
-    <div className={styles.PersonRow}>
+    <div className={classNames(styles.PersonRow, { [styles.adding]: isNew })}>
       {columns.map(column => (
         <div
           key={`${column}_${person?.id}`}

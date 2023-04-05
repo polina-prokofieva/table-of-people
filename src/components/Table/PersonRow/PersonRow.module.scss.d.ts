@@ -7,5 +7,6 @@ declare const classNames: {
   readonly name: "name";
   readonly age: "age";
   readonly about: "about";
+  readonly adding: "adding";
 };
 export = classNames;
